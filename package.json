@@ -1,0 +1,17 @@
+{
+  "name": "rusty-wasm-playground",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run wasm:build && concurrently \"npm run wasm:watch\" \"vite\"",
+    "build": "npm run wasm:build:release && vite build",
+    "wasm:build": "wasm-pack build --target web --out-dir pkg --dev",
+    "wasm:build:release": "wasm-pack build --target web --out-dir pkg",
+    "wasm:watch": "cargo watch -s \"wasm-pack build --target web --out-dir pkg --dev\"",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "concurrently": "^8.2.0"
+  }
+}
