@@ -42,6 +42,17 @@ function setupEventListeners() {
     // The main() function already logs when module loads
     document.getElementById('output').textContent = 'Check browser console for Rust messages';
   });
+
+  // Render list button
+  document.getElementById('render-list-btn').addEventListener('click', () => {
+    const items = document.getElementById('list-input').value || 'Item 1, Item 2, Item 3';
+    wasm.render_list('render-output', items);
+  });
+
+  // Render table button
+  document.getElementById('render-table-btn').addEventListener('click', () => {
+    wasm.render_table('render-output');
+  });
 }
 
 // Initial load

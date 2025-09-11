@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sycamore Examples - Rusty WASM Playground</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+    h1 {
+      color: #ff7043;
+    }
+    h3 {
+      color: #ffa726;
+      margin-top: 2rem;
+    }
+    .sycamore-container {
+      background: #2a2a2a;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    .sycamore-example {
+      background: #333;
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+    button {
+      background: #ff7043;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0.25rem;
+    }
+    button:hover:not(:disabled) {
+      background: #ff5722;
+    }
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+    input[type="text"], input[type="number"] {
+      padding: 0.5rem;
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #e0e0e0;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+    .todo-list {
+      list-style: none;
+      padding: 0;
+    }
+    .todo-list li {
+      padding: 0.5rem;
+      background: #2a2a2a;
+      margin: 0.25rem 0;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+    }
+    .todo-list li.completed {
+      opacity: 0.7;
+    }
+    .todo-input {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    .todo-input input {
+      flex: 1;
+    }
+    .greeting {
+      background: #4caf50;
+      color: white;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+    }
+    .nav-link {
+      display: inline-block;
+      background: #666;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-bottom: 1rem;
+    }
+    .nav-link:hover {
+      background: #777;
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="nav-link">← Back to Main Examples</a>
+  
+  <div id="app"></div>
+
+  <script type="module">
+    import init, { run_sycamore_app } from './pkg/rusty_wasm_playground.js';
+    
+    async function main() {
+      await init();
+      run_sycamore_app();
+    }
+    
+    main().catch(console.error);
+  </script>
+</body>
+</html>
