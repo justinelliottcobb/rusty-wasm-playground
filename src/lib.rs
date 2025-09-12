@@ -1,5 +1,7 @@
 use wasm_bindgen::prelude::*;
 use web_sys::console;
+use rand::prelude::*;
+use serde::{Deserialize, Serialize};
 
 mod sycamore_app;
 
@@ -115,4 +117,134 @@ pub fn render_table(container_id: &str) {
     
     table.append_child(&tbody).unwrap();
     container.append_child(&table).unwrap();
+}
+
+// WASM-optimized crate examples
+// These demonstrate using crates specifically designed for WebAssembly
+
+// Example 1: Random number generation with getrandom (WASM-optimized)
+#[wasm_bindgen]
+pub fn generate_random_data() -> String {
+    let mut rng = thread_rng();
+    
+    let random_numbers: Vec<u32> = (0..10).map(|_| rng.gen_range(1..=100)).collect();
+    let random_color = format!("#{:06x}", rng.gen::<u32>() & 0xFFFFFF);
+    let random_float = rng.gen::<f64>();
+    let random_bool = rng.gen::<bool>();
+    
+    format!(
+        "Numbers: {:?}\nColor: {}\nFloat: {:.4}\nBoolean: {}",
+        random_numbers, random_color, random_float, random_bool
+    )
+}
+
+// Example 2: Password generator using rand crate
+#[wasm_bindgen]
+pub fn generate_password(length: usize) -> String {
+    let charset = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    let mut rng = thread_rng();
+    
+    (0..length)
+        .map(|_| {
+            let idx = rng.gen_range(0..charset.len());
+            charset[idx] as char
+        })
+        .collect()
+}
+
+// Example 3: Dice roller simulation
+#[wasm_bindgen]
+pub fn roll_dice(num_dice: u32, sides: u32) -> String {
+    let mut rng = thread_rng();
+    let mut rolls = Vec::new();
+    let mut total = 0;
+    
+    for _ in 0..num_dice {
+        let roll = rng.gen_range(1..=sides);
+        rolls.push(roll);
+        total += roll;
+    }
+    
+    format!(
+        "Rolled {}d{}: {:?}\nTotal: {} (Average: {:.1})",
+        num_dice, sides, rolls, total, total as f64 / num_dice as f64
+    )
+}
+
+// Example 4: Data structure with serde serialization (WASM-optimized)
+#[derive(Serialize, Deserialize)]
+struct GameCharacter {
+    name: String,
+    level: u32,
+    health: u32,
+    mana: u32,
+    stats: CharacterStats,
+}
+
+#[derive(Serialize, Deserialize)]
+struct CharacterStats {
+    strength: u32,
+    dexterity: u32,
+    intelligence: u32,
+    luck: u32,
+}
+
+#[wasm_bindgen]
+pub fn create_random_character(name: &str) -> JsValue {
+    let mut rng = thread_rng();
+    
+    let character = GameCharacter {
+        name: name.to_string(),
+        level: rng.gen_range(1..=50),
+        health: rng.gen_range(50..=200),
+        mana: rng.gen_range(30..=150),
+        stats: CharacterStats {
+            strength: rng.gen_range(10..=20),
+            dexterity: rng.gen_range(10..=20),
+            intelligence: rng.gen_range(10..=20),
+            luck: rng.gen_range(5..=15),
+        },
+    };
+    
+    serde_wasm_bindgen::to_value(&character).unwrap()
+}
+
+// Example 5: Procedural name generator
+const FIRST_NAMES: &[&str] = &[
+    "Aiden", "Bella", "Connor", "Diana", "Ethan", "Fiona", "Gabriel", "Hannah",
+    "Isaac", "Jade", "Kyle", "Luna", "Mason", "Nova", "Oscar", "Piper",
+];
+
+const LAST_NAMES: &[&str] = &[
+    "Ashford", "Blake", "Cross", "Drake", "Evans", "Fox", "Gray", "Hunt",
+    "Kane", "Lane", "Moore", "Nash", "Pierce", "Quinn", "Reed", "Stone",
+];
+
+#[wasm_bindgen]
+pub fn generate_random_name() -> String {
+    let mut rng = thread_rng();
+    let first = FIRST_NAMES.choose(&mut rng).unwrap();
+    let last = LAST_NAMES.choose(&mut rng).unwrap();
+    format!("{} {}", first, last)
+}
+
+// Example 6: Shuffle and sample from collections
+#[wasm_bindgen]
+pub fn shuffle_and_deal_cards() -> String {
+    let suits = ["♠", "♥", "♦", "♣"];
+    let ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    
+    let mut deck = Vec::new();
+    for suit in suits.iter() {
+        for rank in ranks.iter() {
+            deck.push(format!("{}{}", rank, suit));
+        }
+    }
+    
+    let mut rng = thread_rng();
+    deck.shuffle(&mut rng);
+    
+    let hand: Vec<String> = deck.iter().take(5).cloned().collect();
+    
+    format!("Your poker hand: {}", hand.join(", "))
 }

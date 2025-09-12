@@ -113,6 +113,45 @@
   </div>
 
   <div class="demo-section">
+    <h2>WASM Crate Examples</h2>
+    <p>These examples showcase popular Rust crates optimized for WebAssembly</p>
+    
+    <div style="margin-bottom: 1rem;">
+      <button id="random-data-btn">Generate Random Data</button>
+      <span style="margin-left: 1rem; color: #888;">rand + getrandom crates</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="number" id="password-length" placeholder="Password length" value="16" min="4" max="64" style="width: 150px;">
+      <button id="password-btn">Generate Password</button>
+      <span style="margin-left: 1rem; color: #888;">cryptographically secure</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="number" id="num-dice" placeholder="Number of dice" value="2" min="1" max="20" style="width: 120px;">
+      <input type="number" id="dice-sides" placeholder="Sides" value="6" min="2" max="100" style="width: 80px;">
+      <button id="dice-btn">Roll Dice</button>
+      <span style="margin-left: 1rem; color: #888;">simulation & statistics</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="text" id="character-name" placeholder="Character name" value="Hero" style="width: 150px;">
+      <button id="character-btn">Create Random Character</button>
+      <span style="margin-left: 1rem; color: #888;">serde serialization</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <button id="name-btn">Generate Random Name</button>
+      <button id="cards-btn">Deal Poker Hand</button>
+      <span style="margin-left: 1rem; color: #888;">collections & algorithms</span>
+    </div>
+    
+    <div id="wasm-output" style="background: #333; padding: 1rem; border-radius: 4px; margin-top: 1rem; min-height: 60px; font-family: monospace; white-space: pre-wrap;">
+      Click any button above to see WASM crate examples in action...
+    </div>
+  </div>
+
+  <div class="demo-section">
     <h2>Development Tips</h2>
     <ul>
       <li>The WASM module auto-rebuilds when you save changes to Rust files</li>
