@@ -1,6 +1,9 @@
+#[cfg(feature = "sycamore")]
 use sycamore::prelude::*;
+#[cfg(feature = "sycamore")]
 use wasm_bindgen::prelude::*;
 
+#[cfg(feature = "sycamore")]
 // Example 1: Reactive counter with two-way binding
 #[component]
 fn Counter<G: Html>(cx: Scope) -> View<G> {
@@ -17,6 +20,7 @@ fn Counter<G: Html>(cx: Scope) -> View<G> {
     }
 }
 
+#[cfg(feature = "sycamore")]
 // Example 2: Todo list with reactive state
 #[derive(Clone, Debug, PartialEq)]
 struct Todo {
@@ -25,6 +29,7 @@ struct Todo {
     completed: bool,
 }
 
+#[cfg(feature = "sycamore")]
 #[component]
 fn TodoList<G: Html>(cx: Scope) -> View<G> {
     let todos = create_signal(cx, vec![
@@ -120,6 +125,7 @@ fn TodoList<G: Html>(cx: Scope) -> View<G> {
     }
 }
 
+#[cfg(feature = "sycamore")]
 // Example 3: Computed values and conditional rendering
 #[component]
 fn ReactiveForm<G: Html>(cx: Scope) -> View<G> {
@@ -193,6 +199,7 @@ fn ReactiveForm<G: Html>(cx: Scope) -> View<G> {
     }
 }
 
+#[cfg(feature = "sycamore")]
 // Main app component that combines all examples
 #[component]
 fn App<G: Html>(cx: Scope) -> View<G> {
@@ -208,6 +215,7 @@ fn App<G: Html>(cx: Scope) -> View<G> {
     }
 }
 
+#[cfg(feature = "sycamore")]
 // Entry point for Sycamore app
 #[wasm_bindgen]
 pub fn run_sycamore_app() {

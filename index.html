@@ -112,7 +112,7 @@
     </div>
   </div>
 
-  <div class="demo-section">
+  <div class="demo-section" data-feature="random">
     <h2>WASM Crate Examples</h2>
     <p>These examples showcase popular Rust crates optimized for WebAssembly</p>
     
@@ -148,6 +148,87 @@
     
     <div id="wasm-output" style="background: #333; padding: 1rem; border-radius: 4px; margin-top: 1rem; min-height: 60px; font-family: monospace; white-space: pre-wrap;">
       Click any button above to see WASM crate examples in action...
+    </div>
+  </div>
+
+  <div class="demo-section" data-feature="math">
+    <h2>Linear Algebra Computing</h2>
+    <p>These examples use <code>nalgebra</code> - a general-purpose Rust linear algebra library (not WASM-specific) that "just works" in WebAssembly</p>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="number" id="m11" placeholder="a11" value="2" step="0.1" style="width: 60px;">
+      <input type="number" id="m12" placeholder="a12" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="m21" placeholder="a21" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="m22" placeholder="a22" value="3" step="0.1" style="width: 60px;">
+      <button id="matrix-btn">Matrix Analysis</button>
+      <span style="margin-left: 1rem; color: #888;">eigenvalues, inverse, determinant</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="number" id="pt-x" placeholder="x" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="pt-y" placeholder="y" value="0" step="0.1" style="width: 60px;">
+      <input type="number" id="pt-z" placeholder="z" value="0" step="0.1" style="width: 60px;">
+      <input type="number" id="angle" placeholder="angle°" value="45" step="5" style="width: 80px;">
+      <button id="transform-btn">3D Transformations</button>
+      <span style="margin-left: 1rem; color: #888;">rotations, scaling, translation</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="number" id="v1-x" placeholder="v1.x" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="v1-y" placeholder="v1.y" value="0" step="0.1" style="width: 60px;">
+      <input type="number" id="v1-z" placeholder="v1.z" value="0" step="0.1" style="width: 60px;">
+      <input type="number" id="v2-x" placeholder="v2.x" value="0" step="0.1" style="width: 60px;">
+      <input type="number" id="v2-y" placeholder="v2.y" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="v2-z" placeholder="v2.z" value="0" step="0.1" style="width: 60px;">
+      <button id="vector-btn">Vector Operations</button>
+      <span style="margin-left: 1rem; color: #888;">dot, cross, projection</span>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <input type="number" id="a11" placeholder="a11" value="2" step="0.1" style="width: 60px;">
+      <input type="number" id="a12" placeholder="a12" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="b1" placeholder="b1" value="5" step="0.1" style="width: 60px;">
+      <br style="line-height: 0.5rem;">
+      <input type="number" id="a21" placeholder="a21" value="1" step="0.1" style="width: 60px;">
+      <input type="number" id="a22" placeholder="a22" value="3" step="0.1" style="width: 60px;">
+      <input type="number" id="b2" placeholder="b2" value="7" step="0.1" style="width: 60px;">
+      <button id="solve-btn">Solve System</button>
+      <span style="margin-left: 1rem; color: #888;">Ax = b</span>
+    </div>
+    
+    <div id="math-output" style="background: #333; padding: 1rem; border-radius: 4px; margin-top: 1rem; min-height: 80px; font-family: monospace; white-space: pre-wrap;">
+      Click any button above to see advanced mathematical computations running in WebAssembly...
+    </div>
+  </div>
+
+  <div class="demo-section" data-feature="gpu">
+    <h2>WebGPU Graphics & Compute</h2>
+    <p>These examples use <code>wgpu</code> - a graphics/compute crate (not WASM-specific) running GPU shaders through WebGPU/WebGL</p>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <canvas id="gpu-canvas" width="400" height="300" style="border: 1px solid #444; background: #222;"></canvas>
+      
+      <div style="margin-bottom: 1rem;">
+        <input type="number" id="compute-size" placeholder="Array size" value="1000" min="10" max="10000" style="width: 120px;">
+        <button id="compute-btn">Run GPU Compute Shader</button>
+        <span style="margin-left: 1rem; color: #888;">wgpu (may timeout)</span>
+      </div>
+      
+      <div style="margin-bottom: 1rem;">
+        <input type="number" id="webgl-compute-size" placeholder="Array size" value="1000" min="10" max="10000" style="width: 120px;">
+        <button id="webgl-compute-btn">Run WebGL Compute</button>
+        <span style="margin-left: 1rem; color: #888;">direct WebGL transform feedback</span>
+      </div>
+      
+      <div style="margin-bottom: 1rem;">
+        <button id="triangle-btn">Render GPU Triangle</button>
+        <span style="margin-left: 1rem; color: #888;">WGSL vertex/fragment shaders</span>
+      </div>
+    </div>
+    
+    <div id="gpu-output" style="background: #333; padding: 1rem; border-radius: 4px; margin-top: 1rem; min-height: 100px; font-family: monospace; white-space: pre-wrap;">
+      Click buttons above to see GPU computing and graphics in WebAssembly...
+      <br><em>Note: Requires WebGPU or WebGL support</em>
     </div>
   </div>
 
