@@ -1,0 +1,62 @@
+[tasks.build]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.setup-remote]
+script = '''
+ssh root@sisawat.com "mkdir -p /opt/tresor_actix_server/static"
+'''
+
+[tasks.stop-service]
+script = '''
+ssh root@sisawat.com "systemctl stop tresor_actix_server"
+'''
+
+[tasks.restart-service]
+script = '''
+ssh root@sisawat.com "sleep 5 && systemctl restart tresor_actix_server"
+'''
+
+[tasks.deploy]
+dependencies = ["build", "setup-remote", "stop-service"]
+script = '''
+scp target/release/tresor_actix_server root@sisawat.com:/opt/tresor_actix_server/
+scp -r static/* root@sisawat.com:/opt/tresor_actix_server/static/
+ssh root@sisawat.com "systemctl start surrealdb"
+ssh root@sisawat.com "systemctl start tresor_actix_server"
+'''
+
+[tasks.full-deploy]
+dependencies = ["deploy", "restart-service"]
+
+[tasks.create-service-file]
+script = '''
+cat << EOF > tresor_actix_server.service
+[Unit]
+Description=Tresor Actix Server
+After=network.target surrealdb.service
+Requires=surrealdb.service
+
+[Service]
+ExecStart=/opt/tresor_actix_server/tresor_actix_server
+WorkingDirectory=/opt/tresor_actix_server
+Restart=on-failure
+RestartSec=5
+User=root
+Environment=RUST_LOG=info
+Environment=SURREAL_ADDR=127.0.0.1:8000
+StandardOutput=append:/var/log/tresor_actix_server.log
+StandardError=append:/var/log/tresor_actix_server.log
+
+[Install]
+WantedBy=multi-user.target
+EOF
+'''
+
+[tasks.setup-service]
+dependencies = ["create-service-file"]
+script = '''
+scp tresor_actix_server.service root@sisawat.com:/etc/systemd/system/
+ssh root@sisawat.com "systemctl daemon-reload && systemctl enable tresor_actix_server && systemctl start tresor_actix_server"
+rm tresor_actix_server.service
+'''
